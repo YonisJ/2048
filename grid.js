@@ -15,6 +15,10 @@ export default class Grid {
         })
     }
 
+    get cells() {
+        return this.#cells
+    }
+
     get cellsByRow() {
         return this.#cells.reduce((cellGrid, cell) => {
             cellGrid[cell.y] = cellGrid[cell.y] || []
@@ -41,8 +45,6 @@ export default class Grid {
         return this.#emptyCells[randomIndex]
     }
 }
-
-
 
 class Cell {
     #cellElement
@@ -88,6 +90,13 @@ class Cell {
 
     canAccept(tile) {
         return (this.tile == null || (this.mergeTile == null && this.tile.value === tile.value))
+    }
+
+    mergeTiles() {
+        if (this.tile == null || this.mergeTile == null) return
+        this.tile.value = this.tile.value + this.mergeTile.value
+        this.mergeTile.remove()
+        this.mergeTile = null
     }
         
 }
