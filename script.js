@@ -54,6 +54,12 @@ async function handleInput(e) {
     const newTile = new Tile(gameBoard)
     grid.randomEmptyCell().tile = newTile
 
+    if (!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
+        newTile.waitForTransition(true).then(() => {
+            alert("You lose")
+        })
+     return }
+
 
     setupInput()
 }
